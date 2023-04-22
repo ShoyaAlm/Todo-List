@@ -8,7 +8,7 @@ const {
     } = require('../controllers/controller')
 
     
-router.route('').post(addObjective)
+router.route('/').post(addObjective)
 router.route('/:id').patch(updateObjective).delete(deleteObjective)
 
 module.exports = router

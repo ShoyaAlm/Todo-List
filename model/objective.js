@@ -8,7 +8,7 @@ const Objective = new mongoose.Schema({
         maxLength: [120, 'Name is too long']
     },
     date:{
-        type: Date,
+        type: String,
         required: [true, 'Please provide your target date of the objective']
     },
     completed:{

@@ -1,7 +1,7 @@
 import React from 'react'
-import Setup from './setup'
+import Setup from './Setup'
 
-const ShowTask = async () => {
+const ShowTask = () => {
   return (
     <div>
       <Setup/>

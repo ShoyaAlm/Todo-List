@@ -11,7 +11,7 @@ require('dotenv').config()
 
 const router = require('./routes/routes')
 
-app.use(express.static('./static'))
+app.use(express.static('./front/public'))
 app.use(express.urlencoded({ extended: false}))
 
 app.use('/api/v1', router)

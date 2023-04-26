@@ -1,36 +1,29 @@
 import React from 'react'
 import Setup from './Setup'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ReactDOM from 'react-dom'
+// import ReactDOM from 'react-dom/client'
 import Home from './pages/home' 
+import ShowCase from './pages/objectives';
 
-function ShowTask () {
+import NavBar from './pages/NavBar'
+
+const App = () => {
   return (
 
-    
     <BrowserRouter>
+    <NavBar/>
       <Routes>
         
-        <Route path='/' element={<Home/>}>
-        {/* <Route path='/main' element={<Setup/>}/> */}
-
-        </Route>
-
+        <Route path='/' element={<Home />}/>
+        <Route path='/objectives' element={<ShowCase />} />
 
       </Routes>
 
     </BrowserRouter>
 
-
-
-    // <div>
-    //   <Setup/>
-    // </div>
   )
 }
 
 
 
-export default ShowTask
-
-
+export default App

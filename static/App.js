@@ -1,5 +1,5 @@
 import React from 'react'
-import Setup from './Setup'
+import Setup from './main'
 
 const ShowTask = () => {
   return (

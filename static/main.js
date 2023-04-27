@@ -1,3 +1,4 @@
+const taskDOM = document.querySelector('.tasks')
 const objectiveIDDOM = document.querySelector('.objective-id')
 const objectiveNameDOM = document.querySelector('.objective-name')
 const objectiveDateDOM = document.querySelector(".objective-date")
@@ -12,27 +13,55 @@ const items = async () => {
   
     try {
 
+        
+        
         const fetchData = await fetch('/api/v1');
         const jsonData = await fetchData.json()
 
-        // const { data: {Objectives} } = await axios.get(`/api/v1`)
-        // const { name, date, completed} = Objectives
+        const tasks = jsonData.objectives
 
-        for(let i=0 ; i < jsonData.objectives.length ; i++){
+        
+        const allTasks = tasks.map((task) => {
+            const {_id: objectiveID, name, date, completed} = task
+            return (
+                `<div class="single-task ${completed && 'task-completed'}">
+                
+                <h5><span><i class="far fa-check-circle"></i></span>${name}</h5>
+
+                    <div class="task-links"
+                        <!-- edit link -->
+                        <a href="task.html?id=${objectiveID}"  class="edit-link">
+                        <button type="button" class="delete-btn" data-id="${objectiveID}">
+
+                        <!-- delete btn -->
+                        <button type="button" class="delete-btn" data-id="${objectiveID}">
+                        <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+
+
+                </div>`
             
-            const {name, date, completed} = jsonData.objectives[i]
+            
+            )
+        })
+            .join('')
+            taskDOM.innerHTML = allTasks
 
-            objectiveNameDOM.textContent = name
-            objectiveDateDOM.textContent = date
-            objectiveCompletedDOM.textContent = completed
-        
-        }
-        
 
-        // })
-            // console.log(jsonData.objectives[0]);
 
-        // objectives()
+
+
+
+
+
+        console.log(tasks[0]);
+
+
+
+
+
+
 
     } catch (error) {
         console.log(error);

@@ -3,24 +3,34 @@ const objectiveNameDOM = document.querySelector('.objective-name')
 const objectiveDateDOM = document.querySelector(".objective-date")
 const objectiveCompletedDOM = document.querySelector(".objective-completed")
 
-const id = new URLSearchParams(params).get('id')
+// const id = new URLSearchParams(params).get('id')
 
-import axios from "axios"
+// import axios from "../../axios"
 
 
 const items = async () => {
   
     try {
-        const { data: {objective} } = await axios.get(`/api/v1/${id}`)
-        const { _id : objectiveID, name, date, completed} = objective
 
-        // const objectives = objective.map((oneObjective) =>{
+        const fetchData = await fetch('/api/v1');
+        const jsonData = await fetchData.json()
 
-            objectiveNameDOM.value = name
-            objectiveDateDOM.value = date
-            objectiveCompletedDOM.value = completed
+        // const { data: {Objectives} } = await axios.get(`/api/v1`)
+        // const { name, date, completed} = Objectives
+
+        for(let i=0 ; i < jsonData.objectives.length ; i++){
+            
+            const {name, date, completed} = jsonData.objectives[i]
+
+            objectiveNameDOM.textContent = name
+            objectiveDateDOM.textContent = date
+            objectiveCompletedDOM.textContent = completed
+        
+        }
+        
 
         // })
+            // console.log(jsonData.objectives[0]);
 
         // objectives()
 

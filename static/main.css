@@ -1,0 +1,16 @@
+.objective-name{
+    font-family: Sans-serif;
+}
+
+.objective-date{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.objective-completed{
+    font-family: monospace;
+}
+
+.single-task{
+    /* display: flex; */
+    flex-direction: row;
+}

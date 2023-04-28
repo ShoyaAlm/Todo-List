@@ -12,9 +12,6 @@ const objectiveCompletedDOM = document.querySelector(".objective-completed")
 const items = async () => {
   
     try {
-
-        
-        
         const fetchData = await fetch('/api/v1');
         const jsonData = await fetchData.json()
 
@@ -24,47 +21,36 @@ const items = async () => {
         const allTasks = tasks.map((task) => {
             const {_id: objectiveID, name, date, completed} = task
             return (
-                `<div class="single-task ${completed && 'task-completed'}">
+                `<div class="single-task">
                 
-                <h5><span><i class="far fa-check-circle"></i></span>${name}</h5>
+                <h3 class="objective-name"><span><i></i></span>${name}</h3>
+                <h4 class="objective-date"><span><i></i></span>${date}</h4>
+                <h4 class="objective-completed">completed : <span><i></i></span>${completed}</h4>
 
                     <div class="task-links"
                         <!-- edit link -->
-                        <a href="task.html?id=${objectiveID}"  class="edit-link">
-                        <button type="button" class="delete-btn" data-id="${objectiveID}">
-
+                        <a href="task.html?id=${objectiveID}"  class="edit-link" href="#">
+                        <i class="fas fa-trash">edit</i>
+                        </a>
+                        
                         <!-- delete btn -->
-                        <button type="button" class="delete-btn" data-id="${objectiveID}">
-                        <i class="fas fa-trash"></i>
+                        <button type="button" class="delete-btn" data-id="${objectiveID}" href="#">
+                        <i class="fas fa-trash">delete</i>
                         </button>
                     </div>
 
 
                 </div>`
-            
-            
             )
-        })
-            .join('')
-            taskDOM.innerHTML = allTasks
+        }).join('')
 
-
-
-
-
-
-
-
-        console.log(tasks[0]);
-
-
-
-
+        taskDOM.innerHTML = allTasks
 
 
 
     } catch (error) {
-        console.log(error);
+        taskDOM.innerHTML = 
+        '<h4>there seems to be an error, try again...</h4>'
     }
   
 }

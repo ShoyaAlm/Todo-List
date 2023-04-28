@@ -1,8 +1,13 @@
+// const axios = require("axios")
+
 const taskDOM = document.querySelector('.tasks')
 const objectiveIDDOM = document.querySelector('.objective-id')
 const objectiveNameDOM = document.querySelector('.objective-name')
 const objectiveDateDOM = document.querySelector(".objective-date")
 const objectiveCompletedDOM = document.querySelector(".objective-completed")
+const formDOM = document.querySelector('.objective-form')
+const objectiveInputDOM = document.querySelector('.form-input')
+
 
 // const id = new URLSearchParams(params).get('id')
 
@@ -44,15 +49,16 @@ const items = async () => {
             )
         }).join('')
 
-        taskDOM.innerHTML = allTasks
+        // taskDOM.innerHTML = allTasks
 
 
 
     } catch (error) {
-        taskDOM.innerHTML = 
-        '<h4>there seems to be an error, try again...</h4>'
+        // taskDOM.innerHTML = `there seems to be an error, try again...`
+        console.log(error);
     }
   
 }
 
 items()
+

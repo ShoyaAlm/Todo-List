@@ -12,8 +12,6 @@ const completedInputDOM = document.querySelector('.completed-input')
 const formDOM = document.querySelector('.objective-form')
 
 
-
-
 const items = async () => {
   
     try {
@@ -26,7 +24,7 @@ const items = async () => {
             data: {objectives},
         } = await axios.get('/api/v1')
         if (objectives.length < 1) {
-            objectiveDOM.innerHTML = '<h5 class="empty-list">No tasks in your list</h5>'
+            objectiveDOM.innerHTML = '<h5 class="empty-list">No objectives in your list</h5>'
             // loadingDOM.style.visibility = 'hidden'
             return
           }
@@ -72,6 +70,7 @@ items()
 
 
 formDOM.addEventListener('submit', async (e) => {
+    
     e.preventDefault();
 
     const objectiveName = nameInputDOM.value
@@ -81,13 +80,35 @@ formDOM.addEventListener('submit', async (e) => {
     const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
     
     try {
-        
+        console.log(newObjective);
         await axios.post('/api/v1', {newObjective})
+        
         items()
-        // objectiveInputDOM.value = ''
+        nameInputDOM.value = ''
+        dateInputDOM.value = ''
+        completedInputDOM.value = ''
         
     } catch (error) {
         console.log(error);
     }
     
 })
+
+
+
+
+// console.log(result.response.data);
+
+// axios({
+//     method: "POST",
+//     url: '/api/v1',
+//     data: { newObjective },
+//     validateStatus: (status) => {
+//       return true; // I'm always returning true, you may want to do it depending on the status received
+//     },
+//   }).catch(error => {
+//     console.log(error);
+//   }).then(response => {
+//       // this is now called!
+//       console.log(response);
+//   });

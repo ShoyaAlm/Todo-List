@@ -1,30 +1,38 @@
-// const axios = require("axios")
 
-const taskDOM = document.querySelector('.tasks')
+const objectiveDOM = document.querySelector('.objectives') || {}
 const objectiveIDDOM = document.querySelector('.objective-id')
 const objectiveNameDOM = document.querySelector('.objective-name')
 const objectiveDateDOM = document.querySelector(".objective-date")
 const objectiveCompletedDOM = document.querySelector(".objective-completed")
+
+
+const nameInputDOM = document.querySelector('.name-input')
+const dateInputDOM = document.querySelector('.date-input')
+const completedInputDOM = document.querySelector('.completed-input')
 const formDOM = document.querySelector('.objective-form')
-const objectiveInputDOM = document.querySelector('.form-input')
 
 
-// const id = new URLSearchParams(params).get('id')
-
-// import axios from "../../axios"
 
 
 const items = async () => {
   
     try {
-        const fetchData = await fetch('/api/v1');
-        const jsonData = await fetchData.json()
+        // const fetchData = await fetch('/api/v1');
+        // const jsonData = await fetchData.json()
 
-        const tasks = jsonData.objectives
+        // const objectives = jsonData.objectives
 
-        
-        const allTasks = tasks.map((task) => {
-            const {_id: objectiveID, name, date, completed} = task
+        const {
+            data: {objectives},
+        } = await axios.get('/api/v1')
+        if (objectives.length < 1) {
+            objectiveDOM.innerHTML = '<h5 class="empty-list">No tasks in your list</h5>'
+            // loadingDOM.style.visibility = 'hidden'
+            return
+          }
+
+        const allObjectives = objectives.map((objective) => {
+            const {_id: objectiveID, name, date, completed} = objective
             return (
                 `<div class="single-task">
                 
@@ -49,12 +57,11 @@ const items = async () => {
             )
         }).join('')
 
-        // taskDOM.innerHTML = allTasks
-
+        objectiveDOM.innerHTML = allObjectives
 
 
     } catch (error) {
-        // taskDOM.innerHTML = `there seems to be an error, try again...`
+        objectiveDOM.innerHTML = `there seems to be an error, try again...`
         console.log(error);
     }
   
@@ -62,3 +69,25 @@ const items = async () => {
 
 items()
 
+
+
+formDOM.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const objectiveName = nameInputDOM.value
+    const objectiveDate = dateInputDOM.value
+    const objectiveCompleted = completedInputDOM.value
+
+    const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
+    
+    try {
+        
+        await axios.post('/api/v1', {newObjective})
+        items()
+        // objectiveInputDOM.value = ''
+        
+    } catch (error) {
+        console.log(error);
+    }
+    
+})

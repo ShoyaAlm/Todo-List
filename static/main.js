@@ -37,10 +37,11 @@ const items = async () => {
                 <h3 class="objective-name"><span><i></i></span>${name}</h3>
                 <h4 class="objective-date"><span><i></i></span>${date}</h4>
                 <h4 class="objective-completed">completed : <span><i></i></span>${completed}</h4>
+                <p class="objective-id">${objectiveID}</p>
 
                     <div class="task-links"
                         <!-- edit link -->
-                        <a href="task.html?id=${objectiveID}"  class="edit-link" href="">
+                        <a href="objective.html?id=${objectiveID}"  class="edit-link">
                         <i class="fas fa-trash">edit</i>
                         </a>
                         
@@ -48,6 +49,8 @@ const items = async () => {
                         <button type="button" class="delete-btn" data-id="${objectiveID}">
                         <i class="fas fa-trash">delete</i>
                         </button>
+                        
+                        
                     </div>
 
 
@@ -70,19 +73,19 @@ items()
 
 
 
-objectiveDOM.addEventListener('click', async (e) => {
-    const el = e.target
-    console.log(el);
-    if (el.parentElement.classList.contains('delete-btn')){
-        const id = el.parentElement.dataset.id
-        try {
-            await axios.delete(`/api/v1/${id}`)
-            items()
-        } catch (error) {
-            console.log(error);
-        }
-    }
-})
+// objectiveDOM.addEventListener('click', async (e) => {
+//     const el = e.target
+//     console.log(el);
+//     if (el.parentElement.classList.contains('delete-btn')){
+//         const id = el.parentElement.dataset.id
+//         try {
+//             await axios.delete(`/api/v1/${id}`)
+//             items()
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+// })
 
 // formDOM.addEventListener('submit', async (e) => {
     

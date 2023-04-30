@@ -40,12 +40,12 @@ const items = async () => {
 
                     <div class="task-links"
                         <!-- edit link -->
-                        <a href="task.html?id=${objectiveID}"  class="edit-link" href="#">
+                        <a href="task.html?id=${objectiveID}"  class="edit-link" href="">
                         <i class="fas fa-trash">edit</i>
                         </a>
                         
                         <!-- delete btn -->
-                        <button type="button" class="delete-btn" data-id="${objectiveID}" href="#">
+                        <button type="button" class="delete-btn" data-id="${objectiveID}">
                         <i class="fas fa-trash">delete</i>
                         </button>
                     </div>
@@ -69,70 +69,43 @@ items()
 
 
 
-formDOM.addEventListener('submit', async (e) => {
-    
-    e.preventDefault();
 
-    const objectiveName = nameInputDOM.value
-    const objectiveDate = dateInputDOM.value
-    const objectiveCompleted = completedInputDOM.value
-
-    const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
-    console.log(newObjective);
-    
-    try {
-
-        const result = await axios.post('/api/v1', { newObjective })
-        console.log(result);
-        items()
-        nameInputDOM.value = ''
-        dateInputDOM.value = ''
-        completedInputDOM.value = ''
-    
-    } catch (error) {
-        console.log(error);
+objectiveDOM.addEventListener('click', async (e) => {
+    const el = e.target
+    console.log(el);
+    if (el.parentElement.classList.contains('delete-btn')){
+        const id = el.parentElement.dataset.id
+        try {
+            await axios.delete(`/api/v1/${id}`)
+            items()
+        } catch (error) {
+            console.log(error);
+        }
     }
-
 })
 
+// formDOM.addEventListener('submit', async (e) => {
+    
+//     e.preventDefault();
 
+//     const objectiveName = nameInputDOM.value
+//     const objectiveDate = dateInputDOM.value
+//     const objectiveCompleted = completedInputDOM.value
 
+//     const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
+//     console.log(newObjective);
+    
+//     try {
 
-// console.log(result.response.data);
+//         const result = await axios.post('/api/v1', { newObjective })
+//         console.log(result);
+//         items()
+//         nameInputDOM.value = ''
+//         dateInputDOM.value = ''
+//         completedInputDOM.value = ''
+    
+//     } catch (error) {
+//         console.log(error);
+//     }
 
-// axios({
-    //     method: "POST",
-    //     url: '/api/v1',
-    //     data: { newObjective },
-    //     validateStatus: (status) => {
-        //       return true; // I'm always returning true, you may want to do it depending on the status received
-        //     },
-        //   }).catch(error => {
-            //     console.log(error);
-            //   }).then(response => {
-                //       // this is now called!
-                //       console.log(response);
-                //   });
-                
-                
-                
-                
-                
-                // async function postData(url = "", data = {}) {
-                    //     // Default options are marked with *
-                    //     const response = await fetch(url, {
-                //       method: "POST", // *GET, POST, PUT, DELETE, etc.
-                //       mode: "cors", // no-cors, *cors, same-origin
-                //       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                //       credentials: "same-origin", // include, *same-origin, omit
-                //       headers: {
-                    //         "Content-Type": "application/json",
-                    //         // 'Content-Type': 'application/x-www-form-urlencoded',
-                    //       },
-                    //       redirect: "follow", // manual, *follow, error
-                    //       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                    //       body: JSON.stringify(data), // body data type must match "Content-Type" header
-                    //     });
-                    //     return response.json(); // parses JSON response into native JavaScript objects
-                    //   }
-                    // postData('/api/v1', { newObjective})
+// })

@@ -1,7 +1,7 @@
 
-const nameInputDOM = document.querySelector('.name-input')
-const dateInputDOM = document.querySelector('.date-input')
-const completedInputDOM = document.querySelector('.completed-input')
+let nameInputDOM = document.querySelector('.name-input')
+let dateInputDOM = document.querySelector('.date-input')
+let completedInputDOM = document.querySelector('.completed-input')
 
 const editFormDOM = document.querySelector('.objective-form-edit')
 const submitButtonDOM = document.querySelector('.submit-button')
@@ -12,11 +12,11 @@ const id = new URLSearchParams(params).get('id')
 const showObjective = async () => {
 
     try {
-        const {
-            data: { objective }
-        } = await axios.get(`/api/v1/${id}`)
+        const { data: objective } = await axios.get(`/api/v1/${id}`)
 
-        const {name, date, completed} = objective
+        console.log(objective);
+        console.log(id);
+        const {name, date, completed} = objective.target
 
         nameInputDOM.value = name
         dateInputDOM.value = date,
@@ -57,7 +57,7 @@ editFormDOM.addEventListener('submit', async (e) => {
 
 
     } catch (error) {
-        console.log(error.response);
+        console.log(error);
     }
 
 

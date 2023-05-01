@@ -12,6 +12,19 @@ const getAllObjectives = async (req, res) => {
 
 }
 
+const getObjective = async (req, res) => {
+    const {id} = req.params
+    try {
+        const objective = await Objective.findOne({_id:id})
+        if(!objective){
+            return res.status(404).json({msg: `no such objective with id ${id}`})
+        }
+        res.status(200).json({target: objective})
+    } catch (error) {
+        res.status(500).json({msg: error})
+    }
+}
+
 
 
 const addObjective = async (req, res) => {
@@ -29,14 +42,14 @@ const addObjective = async (req, res) => {
 
 
 const deleteObjective = async (req, res) => {
-    const {id:objectiveID} = req.params
+    const {id:id} = req.params
 
     try {
         
-        const objective = await Objective.findOneAndDelete({_id:objectiveID})
+        const objective = await Objective.findOneAndDelete({_id:id})
 
         if(!objective){
-            return res.status(404).json({msg: `No such objective was found with id ${objectiveID}`})
+            return res.status(404).json({msg: `No such objective was found with id ${id}`})
         }
 
         res.status(200).json({msg: 'objective was successfully deleted '})
@@ -50,17 +63,17 @@ const deleteObjective = async (req, res) => {
 
 
 const updateObjective = async (req, res) => {
-    const {id:objectiveID} = req.params
+    const {id:id} = req.params
     
     try {
         
-        const newObjective = await Objective.findOneAndUpdate({_id:objectiveID}, req.body, {
+        const newObjective = await Objective.findOneAndUpdate({_id:id}, req.body, {
             new:true,
             runValidators:true,
         })
 
         if(!newObjective){
-            return res.status(404).json({msg: `No such objective was found with id ${objectiveID}`})
+            return res.status(404).json({msg: `No such objective was found with id ${id}`})
         }
         
         res.status(200).json({objective: newObjective})
@@ -74,6 +87,7 @@ const updateObjective = async (req, res) => {
 
 module.exports = {
     getAllObjectives,
+    getObjective,
     addObjective,
     deleteObjective,
     updateObjective

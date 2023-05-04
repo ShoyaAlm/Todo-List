@@ -31,7 +31,7 @@ const addObjective = async (req, res) => {
     try {
         const objective = await Objective.create(req.body)
         // res.status(201).json({objective: [...Objective, objective]})
-        res.status(201).json({objective})
+        res.status(201).send({objective})
     
     } catch (error) {
         res.status(500).json({msg: error})

@@ -39,7 +39,7 @@ const items = async () => {
                     <div class="task-links"
                         <!-- edit link -->
                         <a href="objective.html?id=${objectiveID}"  class="edit-link">
-                        <i class="fas fa-trash">edit</i>
+                        <i class="fas fa-edit">edit</i>
                         </a>
                         
                         <!-- delete btn -->
@@ -92,28 +92,27 @@ if (typeof objectiveDOM.addEventListener === "function") {
 
 // form
 
-console.log(formDOM);
 
-    formDOM.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const objectiveName = nameInputDOM.value
-        const objectiveDate = dateInputDOM.value
-        const objectiveCompleted = completedInputDOM.value
+    // formDOM.addEventListener('submit', async (e) => {
+    //     e.preventDefault();
+    //     const objectiveName = nameInputDOM.value
+    //     const objectiveDate = dateInputDOM.value
+    //     const objectiveCompleted = completedInputDOM.value
 
-        const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
-        console.log(newObjective);
+    //     const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
+    //     console.log(newObjective);
         
-        try {
+    //     try {
 
-            const result = await axios.post('/api/v1', { newObjective })
-            console.log(result);
-            items()
-            nameInputDOM.value = ''
-            dateInputDOM.value = ''
-            completedInputDOM.value = ''
+    //         const result = await axios.post('/api/v1', { newObjective })
+    //         console.log(result);
+    //         items()
+    //         nameInputDOM.value = ''
+    //         dateInputDOM.value = ''
+    //         completedInputDOM.value = ''
         
-        } catch (error) {
-            console.log(error);
-        }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
 
-    })
+    // })

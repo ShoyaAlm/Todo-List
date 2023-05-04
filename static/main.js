@@ -1,5 +1,8 @@
 
-const objectiveDOM = document.querySelector('.objectives') || {}
+const objectiveElement = document.querySelector("div.objectives");
+const objectiveDOM = objectiveElement ? objectiveElement : {};
+
+
 const objectiveIDDOM = document.querySelector('.objective-id')
 const objectiveNameDOM = document.querySelector('.objective-name')
 const objectiveDateDOM = document.querySelector(".objective-date")
@@ -9,23 +12,17 @@ const objectiveCompletedDOM = document.querySelector(".objective-completed")
 const nameInputDOM = document.querySelector('.name-input')
 const dateInputDOM = document.querySelector('.date-input')
 const completedInputDOM = document.querySelector('.completed-input')
-const formDOM = document.querySelector('.objective-form')
+const formDOM = document.querySelector(".objective-form")
 
 
 const items = async () => {
   
     try {
-        // const fetchData = await fetch('/api/v1');
-        // const jsonData = await fetchData.json()
-
-        // const objectives = jsonData.objectives
-
         const {
             data: {objectives},
         } = await axios.get('/api/v1')
         if (objectives.length < 1) {
             objectiveDOM.innerHTML = '<h5 class="empty-list">No objectives in your list</h5>'
-            // loadingDOM.style.visibility = 'hidden'
             return
           }
 
@@ -73,42 +70,50 @@ items()
 
 
 
-// objectiveDOM.addEventListener('click', async (e) => {
-//     const el = e.target
-//     console.log(el);
-//     if (el.parentElement.classList.contains('delete-btn')){
-//         const id = el.parentElement.dataset.id
-//         try {
-//             await axios.delete(`/api/v1/${id}`)
-//             items()
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
-// })
+console.log(objectiveDOM);
 
-// formDOM.addEventListener('submit', async (e) => {
-    
-//     e.preventDefault();
 
-//     const objectiveName = nameInputDOM.value
-//     const objectiveDate = dateInputDOM.value
-//     const objectiveCompleted = completedInputDOM.value
+if (typeof objectiveDOM.addEventListener === "function") {
+    objectiveDOM.addEventListener("click", async (e) => {
+        const el = e.target
+        if (el.parentElement.classList.contains('delete-btn')) {
+          const id = el.parentElement.dataset.id
+          try {
+            await axios.delete(`/api/v1/${id}`)
+            items()
+          } catch (error) {
+            console.log(error)
+          }
+        }
+      // ... your event listener code here
+    });
+  }
 
-//     const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
-//     console.log(newObjective);
-    
-//     try {
 
-//         const result = await axios.post('/api/v1', { newObjective })
-//         console.log(result);
-//         items()
-//         nameInputDOM.value = ''
-//         dateInputDOM.value = ''
-//         completedInputDOM.value = ''
-    
-//     } catch (error) {
-//         console.log(error);
-//     }
+// form
 
-// })
+console.log(formDOM);
+
+    formDOM.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const objectiveName = nameInputDOM.value
+        const objectiveDate = dateInputDOM.value
+        const objectiveCompleted = completedInputDOM.value
+
+        const newObjective = {objectiveName, objectiveDate, objectiveCompleted}
+        console.log(newObjective);
+        
+        try {
+
+            const result = await axios.post('/api/v1', { newObjective })
+            console.log(result);
+            items()
+            nameInputDOM.value = ''
+            dateInputDOM.value = ''
+            completedInputDOM.value = ''
+        
+        } catch (error) {
+            console.log(error);
+        }
+
+    })

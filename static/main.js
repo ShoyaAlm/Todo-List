@@ -31,10 +31,10 @@ const items = async () => {
             return (
                 `<div class="single-task">
                 
-                <h3 class="objective-name"><span><i></i></span>${name}</h3>
-                <h4 class="objective-date"><span><i></i></span>${date}</h4>
-                <h4 class="objective-completed">completed : <span><i></i></span>${completed}</h4>
-                <p class="objective-id">${objectiveID}</p>
+                <h3 class="objective-name" style="position : relative;"><span><i></i></span>${name}</h3>
+                <h4 class="objective-date" style="position : relative;"><span><i></i></span>${date}</h4>
+                <h4 class="objective-completed" style="position : relative;">completed : <span><i></i></span>${completed}</h4>
+                <p class="objective-id" style="position : relative;">${objectiveID}</p>
 
                     <div class="task-links"
                         <!-- edit link -->

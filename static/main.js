@@ -30,12 +30,10 @@ const items = async () => {
             const {_id: objectiveID, name, date, completed} = objective
             return (
                 `<div class="single-task">
+                <h3 class="objective-name"><span><i></i></span>${name}</h3>
+                <h4 class="objective-date"><span><i></i></span>${date}</h4>
+                <h4 class="objective-completed">completed : <span><i></i></span>${completed}</h4>
                 
-                <h3 class="objective-name" style="position : relative;"><span><i></i></span>${name}</h3>
-                <h4 class="objective-date" style="position : relative;"><span><i></i></span>${date}</h4>
-                <h4 class="objective-completed" style="position : relative;">completed : <span><i></i></span>${completed}</h4>
-                <p class="objective-id" style="position : relative;">${objectiveID}</p>
-
                     <div class="task-links"
                         <!-- edit link -->
                         <a href="objective.html?id=${objectiveID}"  class="edit-link">
